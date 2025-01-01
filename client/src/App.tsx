@@ -2,17 +2,7 @@ import { useEffect, useState } from "react"
 import { Col, Container, Row } from "react-bootstrap"
 import axios from "axios"
 import "./App.css"
-
-interface BlogRecord {
-  title: string;
-  post: string;
-}
-
-interface ApiResponse {
-  blog_records: BlogRecord[];
-  message: string;
-  statusText: string;
-}
+import { ApiResponse, BlogRecord } from "./types/Blog.type"
 
 function App() {
   const [apiData, setApiData] = useState<BlogRecord[]>([])

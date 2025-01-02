@@ -2,12 +2,13 @@ import { useEffect, useState } from "react"
 import { Col, Container, Row } from "react-bootstrap"
 import axios from "axios"
 import { ApiResponse, BlogRecord } from "../types/blog.type"
-import { Link } from "react-router-dom"
+import { Link, useLocation } from "react-router-dom"
 import Spinner from 'react-bootstrap/Spinner';
 
 function Home() {
   const [apiData, setApiData] = useState<BlogRecord[]>([])
   const [isLoading, setIsLoading] = useState<Boolean>(true)
+  const location = useLocation()
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -52,12 +53,17 @@ function Home() {
         <h3>
             <Link to={`/add`} className="btn btn-primary">Add New</Link>
         </h3>
+        <h5>{location.state && location.state}</h5>
         {apiData.length > 0 && (
           apiData.map((record, index) => {
             return (
               <Col xs={4} key={index} className="py-5 box"> 
                     <div className="title">
                         <Link to={`/blog/${record.id}`}>{record.title}</Link>
+                    </div>
+                    <div>
+                        <Link to={`/edit/${record.id}`}><div className="btn btn-warning">Edit</div></Link>
+                        <Link to={`/delete/${record.id}`}><div className="btn btn-danger">Delete</div></Link>
                     </div>
                 <div>{record.post}</div>
               </Col>

@@ -3,6 +3,8 @@ import "./App.css"
 import Home from "./pages/home"
 import Blog from "./pages/blog"
 import Add from "./pages/Add"
+import Edit from "./pages/Edit"
+import Delete from "./pages/Delete"
 
 const App = () => {
   return (
@@ -10,6 +12,8 @@ const App = () => {
       <Route path="/" element={<Home/>}/>
       <Route path="/blog/:id" element={<Blog/>}/>
       <Route path="/add" element={<Add/>}/>
+      <Route path="/edit/:id" element={<Edit/>}/>
+      <Route path="/delete/:id" element={<Delete/>}/>
     </Routes> 
   )
 }

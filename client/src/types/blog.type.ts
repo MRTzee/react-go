@@ -1,4 +1,5 @@
 export interface BlogRecord {
+  id : number;
   title: string;
   post: string;
 }
@@ -8,3 +9,9 @@ export interface ApiResponse {
   message: string;
   statusText: string;
 }
+
+export interface BlogRequest {
+  title: string;
+  post: string;
+  image?: FileList;
+};

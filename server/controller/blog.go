@@ -54,6 +54,20 @@ func BlogCreate(c *fiber.Ctx) error {
 		context["statusText"] = ""
 	}
 
+	// file upload
+	file, err := c.FormFile("file")
+	if err != nil {
+		log.Println("Error in file upload.", err)
+	}
+
+	if file.Size > 0 {
+		filename := "./public/images/" + file.Filename
+		if err := c.SaveFile(file, filename); err != nil {
+			log.Println("Error in file uploading...", err)
+		}
+		record.Image = filename
+	}
+
 	result := config.DB.Create(&record)
 	if result.Error != nil {
 		log.Println("Error in savind data")

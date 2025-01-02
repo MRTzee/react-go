@@ -11,13 +11,19 @@ const Add = () => {
     const {register, handleSubmit, formState : {errors}} = useForm()
     const saveForm = async(data : any) => {
         setIsLoading(true)
+        data.file = data.image[0];
+        data.image = null;
         try {
             const apiUrl = import.meta.env.VITE_API_ROOT;
             
             if (!apiUrl) {
             throw new Error('API URL tidak ditemukan di environment variables');
             }
-            const response = await axios.post<ApiResponse>(apiUrl, data);
+            const response = await axios.post<ApiResponse>(apiUrl, data, {
+                headers : {
+                    "Content-Type" : "multipart/form-data"
+                }
+            });
             if (response.status === 201) {
                 console.log(response)
                 navigate("/")
@@ -65,6 +71,10 @@ const Add = () => {
                         }) 
                     }/>
                     { errors.post && <div className='text-danger'>{errors.post.message}</div>}
+                </Col>
+                <Col xs={12} className='py-3'>
+                    <label>Image</label>
+                    <input type='file' className={`$errors.image && "text-danger"`} placeholder='Please enter Image' {...register("image") }/>
                 </Col>
                 <Col>
                     <button type='submit'>Save</button>

@@ -2,6 +2,7 @@ package controller
 
 import (
 	"log"
+	"time"
 
 	"github.com/gofiber/fiber/v2"
 	"github.com/mrtzee/react-go/config"
@@ -13,9 +14,31 @@ func BlogList(c *fiber.Ctx) error {
 		"statusText": "Ok",
 		"message":    "Blog List",
 	}
+	time.Sleep(time.Millisecond * 1500)
 	var records []model.Blog
 	config.DB.Find(&records)
 	context["blog_records"] = records
+	c.Status(200)
+	return c.JSON(context)
+}
+
+func BlogDetail(c *fiber.Ctx) error {
+	context := fiber.Map{
+		"statusText": "Ok",
+		"message":    "Blog Detail",
+	}
+	id := c.Params("id")
+	var record model.Blog
+	config.DB.First(&record, id)
+	if record.ID == 0 {
+		context["statusText"] = ""
+		context["message"] = "Record not found"
+		log.Println("Record not found")
+		c.Status(404)
+		return c.JSON(context)
+	}
+
+	context["record"] = record
 	c.Status(200)
 	return c.JSON(context)
 }

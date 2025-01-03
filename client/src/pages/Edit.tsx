@@ -20,7 +20,7 @@ const Edit = () => {
             if (!apiUrl) {
             throw new Error('API URL tidak ditemukan di environment variables');
             }
-            const response = await axios.get<ApiResponse>(apiUrl);
+            const response = await axios.get(apiUrl);
             if (response.status === 200) {
             if (response?.data.statusText === "Ok"){
                 setApiData(response?.data?.record);
@@ -84,7 +84,9 @@ const Edit = () => {
                             minLength : {value : 3, message: "Title should be minimum 3 character"},
                         }) 
                     }/>
-                    { errors.title && <div className='text-danger'>{errors.title.message}</div>}
+                    {errors.title?.message && (
+                         <div className="text-danger">{errors.title.message as string}</div>
+                    )}
                 </Col>
                 <Col xs={12} className='py-3'>
                     <label>Post Content</label>
@@ -94,7 +96,9 @@ const Edit = () => {
                             required : {value : true, message: "Post content is required. "},
                         }) 
                     }/>
-                    { errors.post && <div className='text-danger'>{errors.post.message}</div>}
+                    {errors.post?.message && (
+                        <div className="text-danger">{errors.post.message as string}</div>
+                    )}
                 </Col>
                 <Col>
                     <button type='submit'>Save</button>

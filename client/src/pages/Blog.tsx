@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { ApiResponse, BlogRecord } from '../types/blog.type'
+import { BlogRecord } from '../types/blog.type'
 import axios from 'axios'
 import { useParams } from 'react-router-dom'
 import { Col, Container, Row } from 'react-bootstrap'
@@ -16,7 +16,7 @@ const Blog = () => {
             if (!apiUrl) {
             throw new Error('API URL tidak ditemukan di environment variables');
             }
-            const response = await axios.get<ApiResponse>(apiUrl);
+            const response = await axios.get(apiUrl);
             if (response.status === 200) {
             if (response?.data.statusText === "Ok"){
                 setApiData(response?.data?.record);

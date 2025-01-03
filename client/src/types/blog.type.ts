@@ -10,6 +10,12 @@ export interface ApiResponse {
   statusText: string;
 }
 
+export interface SingleApiResponse {
+  record: BlogRecord[];
+  message: string;
+  statusText: string;
+}
+
 export interface BlogRequest {
   title: string;
   post: string;

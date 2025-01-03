@@ -16,12 +16,6 @@ func init() {
 }
 
 func main() {
-	sqlDB, err := config.DB.DB()
-	if err != nil {
-		panic(err)
-	}
-	defer sqlDB.Close()
-
 	app := fiber.New()
 	app.Use(cors.New(cors.Config{
 		AllowOrigins: "*",

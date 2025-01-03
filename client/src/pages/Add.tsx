@@ -22,7 +22,7 @@ const Add = () => {
             
             if (!apiUrl) {
             throw new Error('API URL tidak ditemukan di environment variables');
-            }
+            }        
             const response = await axios.post<ApiResponse>(apiUrl, data, {
                 headers : {
                     "Content-Type" : "multipart/form-data"
